@@ -122,17 +122,38 @@ const layout = ({
       :root { color-scheme: light dark; }
       body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; line-height: 1.7; }
       .container { width: min(900px, calc(100% - 32px)); margin: 0 auto; padding: 32px 0 64px; }
-      a { color: inherit; }
+      a { color: inherit; text-underline-offset: 3px; }
       .header { margin-bottom: 32px; }
       .muted { opacity: .7; }
       .post-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 20px; }
       .post-list a { text-decoration: none; }
       .card { padding: 16px; border: 1px solid color-mix(in oklab, currentColor 20%, transparent); border-radius: 12px; }
+      .card h2 { margin: 0 0 6px; }
+      .card p { margin: 8px 0; }
       .tags { display: flex; gap: 8px; flex-wrap: wrap; }
       .tag { display: inline-block; padding: 2px 10px; border-radius: 999px; border: 1px solid color-mix(in oklab, currentColor 25%, transparent); font-size: 12px; text-decoration: none; }
-      pre { padding: 16px; border-radius: 10px; overflow-x: auto; font-size: 14px; }
+      article { margin-top: 8px; }
+      article h1 { margin-bottom: 8px; line-height: 1.3; }
+      article h2, article h3 { margin-top: 28px; margin-bottom: 10px; line-height: 1.35; }
+      article p, article ul, article ol, article pre, article blockquote { margin: 14px 0; }
+      article ul, article ol { padding-left: 1.4em; }
+      article li + li { margin-top: 6px; }
+      article blockquote {
+        margin-left: 0;
+        padding: 8px 14px;
+        border-left: 4px solid color-mix(in oklab, currentColor 24%, transparent);
+        background: color-mix(in oklab, currentColor 6%, transparent);
+        border-radius: 8px;
+      }
+      pre { padding: 16px; border-radius: 10px; overflow-x: auto; font-size: 14px; line-height: 1.5; }
       code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }
+      :not(pre) > code {
+        padding: 2px 6px;
+        border-radius: 6px;
+        background: color-mix(in oklab, currentColor 10%, transparent);
+      }
       article img { max-width: 100%; }
+      hr { border: 0; border-top: 1px solid color-mix(in oklab, currentColor 20%, transparent); margin: 28px 0; }
       .footer { margin-top: 48px; font-size: 14px; }
     </style>
   </head>

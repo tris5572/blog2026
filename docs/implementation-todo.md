@@ -54,6 +54,9 @@
   - .oxfmtrc.json
   - package.json (`lint`, `lint:fix`, `format`, `format:check`)
   - .github/workflows/deploy.yml (CI へ組み込み)
+- [x] HTML/CSS の最小整形を実施
+  - scripts/build.ts の埋め込み CSS を調整
+  - 記事本文（見出し、段落、リスト、blockquote、inline code）の可読性を改善
 
 ## 3. 現在の前提
 
@@ -87,7 +90,7 @@
 
 - [x] frontmatter の仕様を docs に固定（入力ルール明文化）
 - [x] 壊れた内部リンク検知のチェックを追加
-- [ ] HTML/CSS の最小整形（読みやすさ改善）
+- [x] HTML/CSS の最小整形（読みやすさ改善）
 
 ### P2（拡張）
 
