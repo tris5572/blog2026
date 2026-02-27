@@ -57,6 +57,20 @@
 - [x] HTML/CSS の最小整形を実施
   - scripts/build.ts の埋め込み CSS を調整
   - 記事本文（見出し、段落、リスト、blockquote、inline code）の可読性を改善
+- [x] ローカルプレビュー機能を追加
+  - scripts/preview.ts
+  - package.json (`preview`, `preview:serve`)
+  - README 手順追記
+- [x] watch プレビュー機能を追加
+  - scripts/dev.ts
+  - package.json (`preview:watch`)
+  - README 手順追記
+- [x] preview の EISDIR クラッシュを修正
+  - scripts/preview.ts のファイル解決を isFile 判定に修正
+  - ReadStream エラーハンドリングを追加
+- [x] preview:watch に Live Reload を追加
+  - scripts/preview.ts に SSE エンドポイント追加
+  - scripts/dev.ts で再ビルド完了時に reload 通知
 
 ## 3. 現在の前提
 

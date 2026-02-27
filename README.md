@@ -33,6 +33,23 @@ pnpm install
 pnpm run build
 ```
 
+ローカルプレビュー:
+
+```bash
+pnpm run preview
+```
+
+記事編集しながら使う場合（自動再ビルド + プレビュー）:
+
+```bash
+pnpm run preview:watch
+```
+
+`preview:watch` 実行中は、Markdown を保存して再ビルドが完了するとブラウザを自動リロードする。
+
+必要に応じて `PREVIEW_HOST` / `PREVIEW_PORT` で待受を変更できる。
+ポート競合時は `PREVIEW_PORT=4174 pnpm run preview:watch` のように別ポートを指定する。
+
 4. 内部リンクチェック
 
 ```bash

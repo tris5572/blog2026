@@ -5,6 +5,9 @@
   "type": "module",
   "scripts": {
     "build": "tsx scripts/build.ts",
+    "preview": "pnpm run build && tsx scripts/preview.ts",
+    "preview:serve": "tsx scripts/preview.ts",
+    "preview:watch": "tsx scripts/dev.ts",
     "check": "tsc --noEmit",
     "lint": "oxlint .",
     "lint:fix": "oxlint . --fix",
@@ -14,6 +17,7 @@
     "check:deployed": "tsx scripts/check-deployed.ts"
   },
   "dependencies": {
+    "chokidar": "^4.0.3",
     "fast-glob": "^3.3.3",
     "gray-matter": "^4.0.3",
     "markdown-it": "^14.1.0",

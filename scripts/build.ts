@@ -252,9 +252,7 @@ const main = async () => {
       "yaml",
     ],
   });
-  const loadedLangs = new Set(
-    highlighter.getLoadedLanguages().map((lang) => String(lang)),
-  );
+  const loadedLangs = new Set(highlighter.getLoadedLanguages().map((lang) => String(lang)));
 
   const md = new MarkdownIt({
     html: true,
@@ -276,9 +274,7 @@ const main = async () => {
     const frontmatter = parsed.data as Frontmatter;
 
     if (!frontmatter.title || !frontmatter.date) {
-      throw new Error(
-        `frontmatter error: title/date is required (${relativeFile})`,
-      );
+      throw new Error(`frontmatter error: title/date is required (${relativeFile})`);
     }
 
     const date = new Date(frontmatter.date);
@@ -288,9 +284,7 @@ const main = async () => {
 
     const fileSlug = slugify(path.basename(relativeFile, ".md"));
     const slug = slugify(frontmatter.slug ?? fileSlug);
-    const tags = (frontmatter.tags ?? [])
-      .map((tag) => tag.trim())
-      .filter(Boolean);
+    const tags = (frontmatter.tags ?? []).map((tag) => tag.trim()).filter(Boolean);
 
     posts.push({
       title: frontmatter.title,
@@ -335,10 +329,7 @@ const main = async () => {
       }),
     );
 
-    await writePage(
-      path.join(outDir, "og", `${post.slug}.svg`),
-      generateOgpSvg(post),
-    );
+    await writePage(path.join(outDir, "og", `${post.slug}.svg`), generateOgpSvg(post));
   }
 
   const indexBody = `<section>
