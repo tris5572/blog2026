@@ -4,7 +4,7 @@ import fg from "fast-glob";
 import matter from "gray-matter";
 import MarkdownIt from "markdown-it";
 import { createHighlighter } from "shiki";
-import { blogConfig } from "../blog.config.js";
+import { blogConfig, hasPlaceholderConfig } from "../blog.config.js";
 
 type Frontmatter = {
   title: string;
@@ -203,7 +203,17 @@ const generateOgpSvg = (post: Post) => {
 };
 
 const main = async () => {
-  const isProduction = (process.env.NODE_ENV ?? "production") === "production";
+  const isProduction = (process.env.NODE_ENV ?? "development") === "production";
+
+  if (isProduction && hasPlaceholderConfig()) {
+    throw new Error(
+      "blog.config.ts のプレースホルダーが残っている。BLOG_SITE_URL / BLOG_BASE_PATH / BLOG_AUTHOR を設定して再実行してください。",
+    );
+  }
+
+  if (!/^https?:\/\//.test(blogConfig.siteUrl)) {
+    throw new Error("siteUrl は http(s) で始まる必要があります。");
+  }
 
   await rm(outDir, { recursive: true, force: true });
   await mkdir(outDir, { recursive: true });

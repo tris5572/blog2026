@@ -4,6 +4,8 @@ TypeScript 製の自作ブログエンジン。
 
 実装方針と作業手順は [docs/implementation-plan.md](docs/implementation-plan.md) を参照。
 実行ログと今後の実装TODOは [docs/implementation-todo.md](docs/implementation-todo.md) を参照。
+frontmatter 仕様は [docs/frontmatter-spec.md](docs/frontmatter-spec.md) を参照。
+公開チェック手順は [docs/pages-deploy-checklist.md](docs/pages-deploy-checklist.md) を参照。
 
 ## できること
 
@@ -16,6 +18,7 @@ TypeScript 製の自作ブログエンジン。
 ## セットアップ
 
 1. `blog.config.ts` を編集して `siteUrl`, `basePath`, `author` を設定
+  - もしくは環境変数 `BLOG_SITE_URL`, `BLOG_BASE_PATH`, `BLOG_AUTHOR` で上書き可能
 2. 依存関係をインストール
 
 ```bash
@@ -27,6 +30,14 @@ pnpm install
 ```bash
 pnpm run build
 ```
+
+4. 内部リンクチェック
+
+```bash
+pnpm run check:links
+```
+
+本番ビルド（`NODE_ENV=production`）では、`blog.config.ts` のプレースホルダー値が残っていると失敗する。
 
 出力先は `dist`。
 

@@ -35,6 +35,19 @@
   - pnpm install
   - pnpm run build
   - 結果: Build complete: 1 posts
+- [x] frontmatter 仕様ドキュメントを追加
+  - docs/frontmatter-spec.md
+- [x] 壊れた内部リンク検知を実装
+  - scripts/check-links.ts
+  - package.json (`check:links`)
+  - .github/workflows/deploy.yml (CI へ組み込み)
+- [x] 本番設定の自動検証を実装
+  - blog.config.ts を環境変数上書き対応
+  - scripts/build.ts でプレースホルダー検知を追加
+- [x] 公開確認の手順と自動チェックを追加
+  - docs/pages-deploy-checklist.md
+  - scripts/check-deployed.ts
+  - package.json (`check:deployed`)
 
 ## 3. 現在の前提
 
@@ -47,10 +60,12 @@
 
 ### P0（公開前に必須）
 
-- [ ] blog.config.ts の本番値を設定
+- [x] blog.config.ts の本番値を設定
   - siteUrl
   - basePath
   - author
+  - 設定値: siteUrl=`https://tris5572.github.io`, basePath=`/blog2026`, author=`tris5572`
+  - 備考: 本番ビルド時はプレースホルダー残存で失敗するため設定漏れを防止済み
 - [ ] GitHub リポジトリ側の Pages 設定を GitHub Actions にする
 - [ ] main へ push して初回デプロイを確認
 - [ ] 公開URLでリンク確認
@@ -60,11 +75,12 @@
   - rss.xml
   - sitemap.xml
   - OGP画像URL
+  - 備考: `DEPLOY_BASE_URL=... pnpm run check:deployed` で主要エンドポイント検証可能
 
 ### P1（品質向上）
 
-- [ ] frontmatter の仕様を docs に固定（入力ルール明文化）
-- [ ] 壊れた内部リンク検知のチェックを追加
+- [x] frontmatter の仕様を docs に固定（入力ルール明文化）
+- [x] 壊れた内部リンク検知のチェックを追加
 - [ ] HTML/CSS の最小整形（読みやすさ改善）
 
 ### P2（拡張）

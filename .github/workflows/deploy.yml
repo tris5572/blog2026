@@ -40,6 +40,9 @@ jobs:
         env:
           NODE_ENV: production
 
+      - name: Check internal links
+        run: pnpm run check:links
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
