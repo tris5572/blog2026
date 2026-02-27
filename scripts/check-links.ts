@@ -12,8 +12,7 @@ const normalizedBasePath = (() => {
   return raw ? `/${raw}` : "";
 })();
 
-const stripHashAndQuery = (value: string) =>
-  value.split("#")[0].split("?")[0] ?? "";
+const stripHashAndQuery = (value: string) => value.split("#")[0].split("?")[0] ?? "";
 
 const isIgnoredLink = (value: string) => {
   if (!value) return true;
@@ -32,9 +31,7 @@ const normalizeTargetPath = (linkValue: string, htmlFilePath: string) => {
     ) {
       return null;
     }
-    const withoutBase = normalizedBasePath
-      ? clean.replace(normalizedBasePath, "") || "/"
-      : clean;
+    const withoutBase = normalizedBasePath ? clean.replace(normalizedBasePath, "") || "/" : clean;
     return path.join(distDir, withoutBase);
   }
 
@@ -43,20 +40,14 @@ const normalizeTargetPath = (linkValue: string, htmlFilePath: string) => {
 };
 
 const resolveCandidateFiles = (targetPath: string) => {
-  const normalized = targetPath.endsWith(path.sep)
-    ? targetPath.slice(0, -1)
-    : targetPath;
+  const normalized = targetPath.endsWith(path.sep) ? targetPath.slice(0, -1) : targetPath;
   const ext = path.extname(normalized);
 
   if (ext) {
     return [normalized];
   }
 
-  return [
-    path.join(normalized, "index.html"),
-    `${normalized}.html`,
-    normalized,
-  ];
+  return [path.join(normalized, "index.html"), `${normalized}.html`, normalized];
 };
 
 const existsAny = async (paths: string[]) => {

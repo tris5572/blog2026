@@ -2,16 +2,16 @@
   "name": "blog2026",
   "version": "0.1.0",
   "private": true,
-  "packageManager": "pnpm@10.16.1",
   "type": "module",
   "scripts": {
     "build": "tsx scripts/build.ts",
     "check": "tsc --noEmit",
+    "lint": "oxlint .",
+    "lint:fix": "oxlint . --fix",
+    "format": "oxfmt .",
+    "format:check": "oxfmt . --check",
     "check:links": "tsx scripts/check-links.ts",
     "check:deployed": "tsx scripts/check-deployed.ts"
-  },
-  "engines": {
-    "node": ">=20"
   },
   "dependencies": {
     "fast-glob": "^3.3.3",
@@ -20,9 +20,15 @@
     "shiki": "^3.7.0"
   },
   "devDependencies": {
-    "@types/node": "^24.3.0",
     "@types/markdown-it": "^14.1.2",
+    "@types/node": "^24.3.0",
+    "oxfmt": "^0.35.0",
+    "oxlint": "^1.50.0",
     "tsx": "^4.20.3",
     "typescript": "^5.9.2"
-  }
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@10.16.1"
 }

@@ -6,6 +6,7 @@
 今後の実装作業は、必ず本ドキュメントの TODO を参照して進める。
 
 運用ルール:
+
 - 新しい実装タスクは先に TODO へ追加してから着手する
 - 実装完了後はステータスを更新する
 - 仕様変更が入った場合は「前提」と「TODO」を同時に更新する
@@ -48,6 +49,11 @@
   - docs/pages-deploy-checklist.md
   - scripts/check-deployed.ts
   - package.json (`check:deployed`)
+- [x] oxlint / oxfmt を導入
+  - .oxlintrc.json
+  - .oxfmtrc.json
+  - package.json (`lint`, `lint:fix`, `format`, `format:check`)
+  - .github/workflows/deploy.yml (CI へ組み込み)
 
 ## 3. 現在の前提
 

@@ -42,8 +42,6 @@ const formatDate = (value: Date) =>
     day: "2-digit",
   }).format(value);
 
-const normalizePath = (value: string) => value.replace(/\\/g, "/");
-
 const trimSlashes = (value: string) => value.replace(/^\/+|\/+$/g, "");
 
 const basePath = (() => {

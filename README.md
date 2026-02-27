@@ -18,7 +18,9 @@ frontmatter 仕様は [docs/frontmatter-spec.md](docs/frontmatter-spec.md) を�
 ## セットアップ
 
 1. `blog.config.ts` を編集して `siteUrl`, `basePath`, `author` を設定
-  - もしくは環境変数 `BLOG_SITE_URL`, `BLOG_BASE_PATH`, `BLOG_AUTHOR` で上書き可能
+
+- もしくは環境変数 `BLOG_SITE_URL`, `BLOG_BASE_PATH`, `BLOG_AUTHOR` で上書き可能
+
 2. 依存関係をインストール
 
 ```bash
@@ -35,6 +37,13 @@ pnpm run build
 
 ```bash
 pnpm run check:links
+```
+
+5. Lint / Format
+
+```bash
+pnpm run lint
+pnpm run format:check
 ```
 
 本番ビルド（`NODE_ENV=production`）では、`blog.config.ts` のプレースホルダー値が残っていると失敗する。

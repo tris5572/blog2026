@@ -16,7 +16,7 @@
 
 ### 3.1 全体構成
 
-- 入力: content/posts/*.md
+- 入力: content/posts/\*.md
 - 変換: scripts/build.ts
 - 出力: dist/
 - 配信: .github/workflows/deploy.yml -> GitHub Pages
@@ -39,10 +39,12 @@
 ### 4.1 記事 frontmatter
 
 必須:
+
 - title
 - date
 
 任意:
+
 - tags
 - draft
 - description
@@ -104,6 +106,7 @@
 - pnpm-lock.yaml を生成
 
 完了条件:
+
 - pnpm install が成功する
 
 ### Step 2: コンテンツパイプライン
@@ -114,7 +117,8 @@
 - 静的ページ出力
 
 完了条件:
-- content/posts の記事から dist/posts/* が生成される
+
+- content/posts の記事から dist/posts/\* が生成される
 
 ### Step 3: 追加生成物
 
@@ -124,6 +128,7 @@
 - 404
 
 完了条件:
+
 - dist に上記成果物が存在する
 
 ### Step 4: OGP 事前生成
@@ -132,7 +137,8 @@
 - article ページに OGP メタを埋め込む
 
 完了条件:
-- dist/og/*.svg が生成され、ページの og:image が正しい
+
+- dist/og/\*.svg が生成され、ページの og:image が正しい
 
 ### Step 5: GitHub Pages デプロイ
 
@@ -140,6 +146,7 @@
 - Pages で GitHub Actions デプロイを有効化
 
 完了条件:
+
 - main への push で公開 URL に反映される
 
 ## 8. 運用ルール
