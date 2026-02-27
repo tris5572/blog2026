@@ -2,6 +2,9 @@
 
 TypeScript 製の自作ブログエンジン。
 
+実装方針と作業手順は [docs/implementation-plan.md](docs/implementation-plan.md) を参照。
+実行ログと今後の実装TODOは [docs/implementation-todo.md](docs/implementation-todo.md) を参照。
+
 ## できること
 
 - Markdown 記事から静的HTMLを生成
