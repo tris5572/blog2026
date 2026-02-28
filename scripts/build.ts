@@ -3,6 +3,7 @@ import path from "node:path";
 import fg from "fast-glob";
 import matter from "gray-matter";
 import MarkdownIt from "markdown-it";
+import markdownItGitHubAlerts from "markdown-it-github-alerts";
 import { createHighlighter } from "shiki";
 import { blogConfig, hasPlaceholderConfig } from "../blog.config.js";
 
@@ -231,6 +232,7 @@ const main = async () => {
       return highlighter.codeToHtml(code, { lang, theme: "github-dark" });
     },
   });
+  md.use(markdownItGitHubAlerts);
 
   const files = await fg("**/*.md", { cwd: contentDir, onlyFiles: true });
 
