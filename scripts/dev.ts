@@ -60,21 +60,16 @@ const scheduleBuild = async (reason: string) => {
 await runBuild();
 preview = startPreviewServer({ liveReload: true });
 
-const watcher = chokidar.watch(
-  [contentDir, publicDir, templatesDir, buildScript, configFile],
-  {
-    ignoreInitial: true,
-  },
-);
+const watcher = chokidar.watch([contentDir, publicDir, templatesDir, buildScript, configFile], {
+  ignoreInitial: true,
+});
 
 watcher.on("all", async (eventName, changedPath) => {
   const relative = path.relative(rootDir, changedPath);
   await scheduleBuild(`${eventName}: ${relative}`);
 });
 
-console.log(
-  "[watch] watching content/public/templates/blog.config.ts/scripts/build.ts",
-);
+console.log("[watch] watching content/public/templates/blog.config.ts/scripts/build.ts");
 
 let shuttingDown = false;
 

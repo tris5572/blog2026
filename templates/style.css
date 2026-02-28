@@ -97,9 +97,7 @@ pre {
   line-height: 1.5;
 }
 code {
-  font-family:
-    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
-    monospace;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
 }
 :not(pre) > code {
   padding: 2px 6px;
