@@ -6,6 +6,7 @@ import { startPreviewServer } from "./preview.js";
 const rootDir = process.cwd();
 const contentDir = path.join(rootDir, "content");
 const publicDir = path.join(rootDir, "public");
+const templatesDir = path.join(rootDir, "templates");
 const buildScript = path.join(rootDir, "scripts", "build.ts");
 const configFile = path.join(rootDir, "blog.config.ts");
 
@@ -60,7 +61,7 @@ await runBuild();
 preview = startPreviewServer({ liveReload: true });
 
 const watcher = chokidar.watch(
-  [contentDir, publicDir, buildScript, configFile],
+  [contentDir, publicDir, templatesDir, buildScript, configFile],
   {
     ignoreInitial: true,
   },
@@ -71,7 +72,9 @@ watcher.on("all", async (eventName, changedPath) => {
   await scheduleBuild(`${eventName}: ${relative}`);
 });
 
-console.log("[watch] watching content/public/blog.config.ts/scripts/build.ts");
+console.log(
+  "[watch] watching content/public/templates/blog.config.ts/scripts/build.ts",
+);
 
 let shuttingDown = false;
 

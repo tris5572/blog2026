@@ -71,6 +71,10 @@
 - [x] preview:watch に Live Reload を追加
   - scripts/preview.ts に SSE エンドポイント追加
   - scripts/dev.ts で再ビルド完了時に reload 通知
+- [x] レイアウトテンプレートを外部ファイル化
+  - templates/layout.html
+  - templates/style.css
+  - scripts/build.ts で外部テンプレートを読み込み
 
 ## 3. 現在の前提
 

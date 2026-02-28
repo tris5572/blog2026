@@ -34,6 +34,7 @@ const rootDir = process.cwd();
 const contentDir = path.join(rootDir, "content", "posts");
 const outDir = path.join(rootDir, "dist");
 const publicDir = path.join(rootDir, "public");
+const templatesDir = path.join(rootDir, "templates");
 
 const formatDate = (value: Date) =>
   new Intl.DateTimeFormat("ja-JP", {
@@ -83,91 +84,51 @@ const slugify = (value: string) =>
     .replace(/\s+/g, "-")
     .replace(/-+/g, "-");
 
-const layout = ({
-  title,
-  description,
-  body,
-  canonicalPath,
-  ogImagePath,
-  noindex = false,
-}: {
-  title: string;
-  description: string;
-  body: string;
-  canonicalPath: string;
-  ogImagePath?: string;
-  noindex?: boolean;
-}) => {
+const renderLayout = (
+  templateHtml: string,
+  styleCss: string,
+  {
+    title,
+    description,
+    body,
+    canonicalPath,
+    ogImagePath,
+    noindex = false,
+  }: {
+    title: string;
+    description: string;
+    body: string;
+    canonicalPath: string;
+    ogImagePath?: string;
+    noindex?: boolean;
+  },
+) => {
   const fullTitle = `${title} | ${blogConfig.title}`;
   const canonicalUrl = toAbsoluteUrl(canonicalPath);
   const ogImage = ogImagePath ? toAbsoluteUrl(ogImagePath) : undefined;
+  const ogImageMeta = ogImage
+    ? `<meta property="og:image" content="${htmlEscape(ogImage)}" />`
+    : "";
+  const twitterImageMeta = ogImage
+    ? `<meta name="twitter:image" content="${htmlEscape(ogImage)}" />`
+    : "";
+  const robotsMeta = noindex ? '<meta name="robots" content="noindex" />' : "";
 
-  return `<!doctype html>
-<html lang="${blogConfig.language}">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>${htmlEscape(fullTitle)}</title>
-    <meta name="description" content="${htmlEscape(description)}" />
-    <link rel="canonical" href="${htmlEscape(canonicalUrl)}" />
-    <meta property="og:type" content="article" />
-    <meta property="og:title" content="${htmlEscape(fullTitle)}" />
-    <meta property="og:description" content="${htmlEscape(description)}" />
-    <meta property="og:url" content="${htmlEscape(canonicalUrl)}" />
-    ${ogImage ? `<meta property="og:image" content="${htmlEscape(ogImage)}" />` : ""}
-    <meta name="twitter:card" content="summary_large_image" />
-    ${ogImage ? `<meta name="twitter:image" content="${htmlEscape(ogImage)}" />` : ""}
-    ${noindex ? '<meta name="robots" content="noindex" />' : ""}
-    <style>
-      :root { color-scheme: light dark; }
-      body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; line-height: 1.7; }
-      .container { width: min(900px, calc(100% - 32px)); margin: 0 auto; padding: 32px 0 64px; }
-      a { color: inherit; text-underline-offset: 3px; }
-      .header { margin-bottom: 32px; }
-      .muted { opacity: .7; }
-      .post-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 20px; }
-      .post-list a { text-decoration: none; }
-      .card { padding: 16px; border: 1px solid color-mix(in oklab, currentColor 20%, transparent); border-radius: 12px; }
-      .card h2 { margin: 0 0 6px; }
-      .card p { margin: 8px 0; }
-      .tags { display: flex; gap: 8px; flex-wrap: wrap; }
-      .tag { display: inline-block; padding: 2px 10px; border-radius: 999px; border: 1px solid color-mix(in oklab, currentColor 25%, transparent); font-size: 12px; text-decoration: none; }
-      article { margin-top: 8px; }
-      article h1 { margin-bottom: 8px; line-height: 1.3; }
-      article h2, article h3 { margin-top: 28px; margin-bottom: 10px; line-height: 1.35; }
-      article p, article ul, article ol, article pre, article blockquote { margin: 14px 0; }
-      article ul, article ol { padding-left: 1.4em; }
-      article li + li { margin-top: 6px; }
-      article blockquote {
-        margin-left: 0;
-        padding: 8px 14px;
-        border-left: 4px solid color-mix(in oklab, currentColor 24%, transparent);
-        background: color-mix(in oklab, currentColor 6%, transparent);
-        border-radius: 8px;
-      }
-      pre { padding: 16px; border-radius: 10px; overflow-x: auto; font-size: 14px; line-height: 1.5; }
-      code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }
-      :not(pre) > code {
-        padding: 2px 6px;
-        border-radius: 6px;
-        background: color-mix(in oklab, currentColor 10%, transparent);
-      }
-      article img { max-width: 100%; }
-      hr { border: 0; border-top: 1px solid color-mix(in oklab, currentColor 20%, transparent); margin: 28px 0; }
-      .footer { margin-top: 48px; font-size: 14px; }
-    </style>
-  </head>
-  <body>
-    <main class="container">
-      <header class="header">
-        <h1><a href="${withBasePath("/")}" style="text-decoration:none;">${htmlEscape(blogConfig.title)}</a></h1>
-        <p class="muted">${htmlEscape(blogConfig.description)}</p>
-      </header>
-      ${body}
-      <footer class="footer muted">© ${new Date().getFullYear()} ${htmlEscape(blogConfig.author)}</footer>
-    </main>
-  </body>
-</html>`;
+  return templateHtml
+    .replaceAll("{{LANG}}", htmlEscape(blogConfig.language))
+    .replaceAll("{{FULL_TITLE}}", htmlEscape(fullTitle))
+    .replaceAll("{{DESCRIPTION}}", htmlEscape(description))
+    .replaceAll("{{CANONICAL_URL}}", htmlEscape(canonicalUrl))
+    .replaceAll("{{OG_IMAGE_META}}", ogImageMeta)
+    .replaceAll("{{TWITTER_IMAGE_META}}", twitterImageMeta)
+    .replaceAll("{{ROBOTS_META}}", robotsMeta)
+    .replaceAll("{{STYLE}}", styleCss)
+    .replaceAll("{{HOME_URL}}", withBasePath("/"))
+    .replaceAll("{{BLOG_TITLE}}", htmlEscape(blogConfig.title))
+    .replaceAll("{{BLOG_DESCRIPTION}}", htmlEscape(blogConfig.description))
+    .replaceAll("{{BODY}}", body)
+    .replaceAll("{{YEAR}}", String(new Date().getFullYear()))
+    .replaceAll("{{AUTHOR}}", htmlEscape(blogConfig.author));
 };
 
 const ensureDir = async (targetPath: string) => {
@@ -237,6 +198,13 @@ const main = async () => {
   await rm(outDir, { recursive: true, force: true });
   await mkdir(outDir, { recursive: true });
 
+  const layoutTemplatePath = path.join(templatesDir, "layout.html");
+  const styleTemplatePath = path.join(templatesDir, "style.css");
+  const [layoutTemplate, styleTemplate] = await Promise.all([
+    readFile(layoutTemplatePath, "utf8"),
+    readFile(styleTemplatePath, "utf8"),
+  ]);
+
   const highlighter = await createHighlighter({
     themes: ["github-dark"],
     langs: [
@@ -252,7 +220,9 @@ const main = async () => {
       "yaml",
     ],
   });
-  const loadedLangs = new Set(highlighter.getLoadedLanguages().map((lang) => String(lang)));
+  const loadedLangs = new Set(
+    highlighter.getLoadedLanguages().map((lang) => String(lang)),
+  );
 
   const md = new MarkdownIt({
     html: true,
@@ -274,7 +244,9 @@ const main = async () => {
     const frontmatter = parsed.data as Frontmatter;
 
     if (!frontmatter.title || !frontmatter.date) {
-      throw new Error(`frontmatter error: title/date is required (${relativeFile})`);
+      throw new Error(
+        `frontmatter error: title/date is required (${relativeFile})`,
+      );
     }
 
     const date = new Date(frontmatter.date);
@@ -284,7 +256,9 @@ const main = async () => {
 
     const fileSlug = slugify(path.basename(relativeFile, ".md"));
     const slug = slugify(frontmatter.slug ?? fileSlug);
-    const tags = (frontmatter.tags ?? []).map((tag) => tag.trim()).filter(Boolean);
+    const tags = (frontmatter.tags ?? [])
+      .map((tag) => tag.trim())
+      .filter(Boolean);
 
     posts.push({
       title: frontmatter.title,
@@ -320,7 +294,7 @@ const main = async () => {
 
     await writePage(
       path.join(outDir, "posts", post.slug, "index.html"),
-      layout({
+      renderLayout(layoutTemplate, styleTemplate, {
         title: post.title,
         description: post.description,
         body: postBody,
@@ -329,7 +303,10 @@ const main = async () => {
       }),
     );
 
-    await writePage(path.join(outDir, "og", `${post.slug}.svg`), generateOgpSvg(post));
+    await writePage(
+      path.join(outDir, "og", `${post.slug}.svg`),
+      generateOgpSvg(post),
+    );
   }
 
   const indexBody = `<section>
@@ -339,7 +316,7 @@ const main = async () => {
 
   await writePage(
     path.join(outDir, "index.html"),
-    layout({
+    renderLayout(layoutTemplate, styleTemplate, {
       title: "Home",
       description: blogConfig.description,
       body: indexBody,
@@ -364,7 +341,7 @@ const main = async () => {
 
     await writePage(
       path.join(outDir, "tags", tag, "index.html"),
-      layout({
+      renderLayout(layoutTemplate, styleTemplate, {
         title: `Tag: ${tag}`,
         description: `${tag} の記事一覧`,
         body,
@@ -421,7 +398,7 @@ ${urls}
 
   await writePage(
     path.join(outDir, "404.html"),
-    layout({
+    renderLayout(layoutTemplate, styleTemplate, {
       title: "Not Found",
       description: "ページが見つからない",
       body: `<section><h2>404</h2><p>ページが見つからない。<a href="${withBasePath("/")}">トップへ戻る</a></p></section>`,

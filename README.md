@@ -67,6 +67,8 @@ pnpm run format:check
 
 出力先は `dist`。
 
+HTML テンプレートは `templates/layout.html`、スタイルは `templates/style.css` で管理する。
+
 ## 記事の書き方
 
 `content/posts/*.md` に frontmatter 付きで作成。

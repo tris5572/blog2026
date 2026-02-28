@@ -66,11 +66,7 @@ const resolveFile = async (pathname: string) => {
   const safePath = path.normalize(decoded).replace(/^\.{1,2}(\/|\\|$)/g, "");
   const absolute = path.join(distDir, safePath);
 
-  const candidates = [
-    absolute,
-    path.join(absolute, "index.html"),
-    `${absolute}.html`,
-  ];
+  const candidates = [absolute, path.join(absolute, "index.html"), `${absolute}.html`];
 
   for (const candidate of candidates) {
     if (await isFile(candidate)) {
@@ -136,10 +132,7 @@ export const startPreviewServer = (options?: { liveReload?: boolean }) => {
   const clients = new Set<import("node:http").ServerResponse>();
 
   const server = createServer(async (request, response) => {
-    const requestUrl = new URL(
-      request.url ?? "/",
-      `http://${request.headers.host ?? host}`,
-    );
+    const requestUrl = new URL(request.url ?? "/", `http://${request.headers.host ?? host}`);
 
     if (isLiveReloadRequest(requestUrl.pathname)) {
       if (!liveReload) {
@@ -229,8 +222,7 @@ export const startPreviewServer = (options?: { liveReload?: boolean }) => {
 };
 
 const isDirectRun =
-  process.argv[1] &&
-  fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);
+  process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);
 
 if (isDirectRun) {
   const preview = startPreviewServer();
