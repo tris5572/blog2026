@@ -6,12 +6,12 @@ const pickEnv = (name: string, fallback: string) => {
 };
 
 export const blogConfig = {
-  title: "Blog 2026",
-  description: "TypeScript 製の自作ブログ",
+  title: "TRISHAFT",
+  description: "プログラミングや登山やサイクリングなど",
   language: "ja",
   siteUrl: pickEnv("BLOG_SITE_URL", "https://tris5572.github.io"),
   basePath: pickEnv("BLOG_BASE_PATH", "/blog2026"),
-  author: pickEnv("BLOG_AUTHOR", "tris5572"),
+  author: pickEnv("BLOG_AUTHOR", "tris"),
 };
 
 export const hasPlaceholderConfig = () =>
