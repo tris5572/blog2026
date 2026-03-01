@@ -36,6 +36,7 @@ ogDescription: OGP用説明
 - `tags` (`string[]`)
   - タグ一覧
   - 空文字タグは無視される
+  - 半角スペースは含められない
 - `draft` (`boolean`)
   - `true` の場合、`NODE_ENV=production` では公開対象から除外
 - `description` (`string`)
