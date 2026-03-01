@@ -42,4 +42,3 @@ GitHub Actions で静的ファイルを生成して GitHub Pages に配信する
 
 > [!CAUTION]
 > caution
-
