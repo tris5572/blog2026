@@ -2,7 +2,7 @@
 title: Hello, blog2026
 date: 2026-02-28
 tags:
-  - set up
+  - setup
   - typescript
 description: 自作ブログエンジンの最初の記事
 ---
